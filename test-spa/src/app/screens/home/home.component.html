@@ -1,16 +1,51 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID:</th>
-      <th>Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of students">
-      <td>{{ student.id }}</td>
-      <td>{{ student.name }}</td>
-      <td>{{ student.email }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Students</div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID:</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of students">
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>
+                  <button
+                    class="btn btn-danger btn-sm"
+                    (click)="deleteStudent(student.id)"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="showAddStudent = !showAddStudent"
+          >
+            Add Student
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Add Student</div>
+        <div class="card-body">
+          <app-add-student *ngIf="showAddStudent"></app-add-student>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

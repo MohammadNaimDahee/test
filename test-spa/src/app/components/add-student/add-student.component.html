@@ -1,0 +1,123 @@
+<div class="container">
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="id">ID</label>
+      <input
+        id="id"
+        type="number"
+        class="form-control"
+        placeholder="ID"
+        formControlName="id"
+        name="id"
+      />
+      <div
+        class="error"
+        *ngIf="
+          addForm.get('id').hasError('required') && addForm.get('id').touched
+        "
+      >
+        ID is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        id="name"
+        type="text"
+        class="form-control"
+        placeholder="Name"
+        formControlName="name"
+        name="name"
+      />
+      <div class="error" *ngIf="addForm.get('name').hasError('required')">
+        Name is Required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="text"
+        class="form-control"
+        placeholder="Name"
+        formControlName="email"
+        name="email"
+      />
+      <div class="error" *ngIf="addForm.get('email').hasError('required')">
+        Email is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Grades</label>
+      <button type="button" class="btn btn-secondary" (click)="addGrade()">
+        +
+      </button>
+    </div>
+
+    <div formArrayName="grades">
+      <div
+        *ngFor="let grade of student.grades; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="form-group">
+          <label for="subject_{{ i }}">Subject</label>
+          <input
+            id="grades_subject{{ i }}"
+            type="text"
+            class="form-control"
+            placeholder="Subject"
+            formControlName="subject"
+          />
+          <div
+            class="error"
+            *ngIf="
+              grades.controls[i]['controls'].subject.hasError('required') &&
+              grades.controls[i]['controls'].subject.touched
+            "
+          >
+            Subject is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="grades_marks{{ i }}">Marks</label>
+          <input
+            id="grades_marks{{ i }}"
+            type="text"
+            class="form-control"
+            placeholder="Marks"
+            formControlName="marks"
+          />
+          <div
+            class="error"
+            *ngIf="
+              grades.controls[i]['controls'].marks.hasError('required') &&
+              grades.controls[i]['controls'].marks.touched
+            "
+          >
+            Marks required
+          </div>
+        </div>
+        <button class="btn btn-danger" (click)="removeGrade(i)">-</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button
+          type="submit"
+          [disabled]="!addForm.valid"
+          class="
+            btn btn-primary btn-md
+            mt-1
+            pull-right
+            waves-effect
+            text-center
+            m-b-20
+          "
+        >
+          <i class="fa fa-save"></i> Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

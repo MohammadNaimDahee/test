@@ -1,13 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomeComponent } from './screens/home/home.component';
-import { CoursesComponent } from './screens/courses/courses.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { TeachersComponent } from './components/teachers/teachers.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { HomeComponent } from "./screens/home/home.component";
+import { CoursesComponent } from "./screens/courses/courses.component";
+import { NotFoundComponent } from "./components/not-found/not-found.component";
+import { TeachersComponent } from "./components/teachers/teachers.component";
+import { AddStudentComponent } from "./components/add-student/add-student.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -16,13 +19,17 @@ import { TeachersComponent } from './components/teachers/teachers.component';
     HomeComponent,
     CoursesComponent,
     NotFoundComponent,
-    TeachersComponent
+    TeachersComponent,
+    AddStudentComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

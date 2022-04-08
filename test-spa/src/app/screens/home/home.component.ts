@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Student } from "src/app/models/Student";
 import { StudentService } from "src/app/services/student.service";
+import { io } from "socket.io-client";
 
 @Component({
   selector: "app-home",
@@ -9,7 +10,14 @@ import { StudentService } from "src/app/services/student.service";
 })
 export class HomeComponent implements OnInit {
   students: Student[] = [];
-  constructor(private studentService: StudentService) {}
+  showAddStudent = false;
+  constructor(private studentService: StudentService) {
+    const socket = io("http://localhost:5000/");
+    socket.on("studentAdded", (student) => {
+      console.log("Student:::", student);
+      this.students.push(student);
+    });
+  }
 
   ngOnInit() {
     this.getStudents();
@@ -21,6 +29,17 @@ export class HomeComponent implements OnInit {
       .then(({ data }) => {
         this.students = data;
         console.log(this.students);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  deleteStudent = (id: number) => {
+    this.studentService
+      .deleteStudent(id)
+      .then(({ data }) => {
+        alert(data.message);
+        const index = this.students.findIndex((s) => s.id == id);
+        this.students.splice(index, 1);
       })
       .catch((error) => console.log(error));
   };
